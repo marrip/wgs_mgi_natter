@@ -19,8 +19,8 @@ rule combine_fastq:
     fwd = linkSample2BarcodeFwd,
     rev = linkSample2BarcodeRev
   output:
-    fwd = config["samples"]["runid"] + "_{id}_R1.fq",
-    rev = config["samples"]["runid"] + "_{id}_R2.fq"
+    fwd = "combine_fastq/" + config["samples"]["runid"] + "_{id}_R1.fq",
+    rev = "combine_fastq/" + config["samples"]["runid"] + "_{id}_R2.fq"
   container:
     config["tools"]["ubuntu"]
   shell:
