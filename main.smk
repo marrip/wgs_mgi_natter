@@ -1,1 +1,5 @@
 include:  "src/combine_fastq.smk"
+include:  "src/fastqc.smk"
+include:  "src/fastp.smk"
+include:  "src/bwa_mem2.smk"
+include:  "src/mark_duplicates.smk"
