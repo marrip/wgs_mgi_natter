@@ -19,6 +19,9 @@ may check the `test.cfg`.
 The workflow may be started doing something like this:
 
 ```
-snakemake --use-singularity -s main.smk --singularity-args " --cleanenv --bind /Path/to/data/and/references" \
-          --configfile test.cfg
+snakemake \
+  -s main.smk \
+  --configfile test.cfg \
+  --use-singularity \
+  --singularity-args " --cleanenv --bind /Path/to/data/and/references"
 ```
