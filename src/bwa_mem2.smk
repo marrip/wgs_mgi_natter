@@ -1,7 +1,7 @@
 rule bwa_mem2:
   input:
-    fwd="fastp/{runid}_{id}_R1.fq",
-    rev="fastp/{runid}_{id}_R2.fq",
+    fwd="fastp/{runid}_{id}_R1.fq.gz",
+    rev="fastp/{runid}_{id}_R2.fq.gz",
     ref=config["reference"]["fasta"]
   output:
     bam="bwa_mem2/{runid}_{id}.bam",

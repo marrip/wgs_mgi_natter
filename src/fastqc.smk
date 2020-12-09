@@ -1,7 +1,7 @@
 rule fastqc:
   input:
-    fwd="combine_fastq/{runid}_{id}_R1.fq",
-    rev="combine_fastq/{runid}_{id}_R2.fq"
+    fwd="combine_fastq/{runid}_{id}_R1.fq.gz",
+    rev="combine_fastq/{runid}_{id}_R2.fq.gz"
   output:
     html="fastqc/{runid}_{id}_R1_fastqc.html",
     zip="fastqc/{runid}_{id}_R1_fastqc.zip"

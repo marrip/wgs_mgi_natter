@@ -1,10 +1,10 @@
 rule fastp:
   input:
-    fwd="combine_fastq/{runid}_{id}_R1.fq",
-    rev="combine_fastq/{runid}_{id}_R2.fq"
+    fwd="combine_fastq/{runid}_{id}_R1.fq.gz",
+    rev="combine_fastq/{runid}_{id}_R2.fq.gz"
   output:
-    fwd="fastp/{runid}_{id}_R1.fq",
-    rev="fastp/{runid}_{id}_R2.fq",
+    fwd="fastp/{runid}_{id}_R1.fq.gz",
+    rev="fastp/{runid}_{id}_R2.fq.gz",
     json="fastp/{runid}_{id}_fastp.json",
     html="fastp/{runid}_{id}_fastp.html"
   params:
