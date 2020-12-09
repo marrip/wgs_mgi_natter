@@ -16,4 +16,4 @@ rule fastp:
     config["tools"]["fastp"]
   threads: 40
   shell:
-    "fastp --in1 {input.fwd} --in2 {input.rev} --out1 {output.fwd} --out2 {output.rev} --fix_mgi_id --adapter_sequence {params.ad_fwd} --adapter_sequence_r2 {params.ad_rev} --json {output.json} --html {output.html} --w {threads} &> {log}"
+    "fastp --in1 {input.fwd} --in2 {input.rev} --out1 {output.fwd} --out2 {output.rev} --fix_mgi_id --adapter_sequence {params.ad_fwd} --adapter_sequence_r2 {params.ad_rev} --json {output.json} --html {output.html} -w {threads} &> {log}"
