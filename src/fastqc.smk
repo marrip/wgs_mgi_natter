@@ -11,5 +11,6 @@ rule fastqc:
     "fastqc/{runid}_{id}.log"
   container:
     config["tools"]["fastqc"]
+  threads: 2
   shell:
-    "fastqc --outdir fastqc {input} &> {log}"
+    "fastqc -t {threads} --outdir fastqc {input} &> {log}"
