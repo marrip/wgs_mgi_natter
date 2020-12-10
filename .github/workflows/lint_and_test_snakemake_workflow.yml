@@ -18,4 +18,4 @@ jobs:
         with:
           directory: "."
           snakefile: "main.smk"
-          args: "--lint"
+          args: "--lint --configfile test.cfg"
