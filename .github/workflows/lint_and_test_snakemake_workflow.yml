@@ -1,0 +1,21 @@
+name: Lint and Test Snakemake workflow
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  lint_and_test:
+    name: Lint and test workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v1
+      - name: Linting
+        uses: snakemake/snakemake-github-action@v1.6.0
+        with:
+          directory: "."
+          snakefile: "main.smk"
+          args: "--lint"
