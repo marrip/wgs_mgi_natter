@@ -1,0 +1,9 @@
+.cache
+.java
+.snakemake
+bwa_mem2
+breakdancer
+combine_fastq
+fastp
+fastqc
+mark_duplicates
