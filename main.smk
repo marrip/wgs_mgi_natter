@@ -2,10 +2,7 @@
 rule all:
   input:
     expand("fastqc/{runid}_{id}_{orientation}_fastqc.{extension}", runid=config["samples"]["runid"], id=config["samples"]["barcodes"], orientation=["R1", "R2"], extension=["html", "zip"]),
-    expand("mark_duplicates/{runid}_{id}_dedup.bam", runid=config["samples"]["runid"], id=config["samples"]["barcodes"]),
-    expand("mark_duplicates/{runid}_{id}_dedup.bam.bai", runid=config["samples"]["runid"], id=config["samples"]["barcodes"]),
-    expand("mark_duplicates/{runid}_{id}_dedup.bam.metrics", runid=config["samples"]["runid"], id=config["samples"]["barcodes"]),
-    expand("breakdancer/{runid}_{id}_breakdancer.vcf", runid=config["samples"]["runid"], id=config["samples"]["barcodes"])
+    expand("breakdancer/{runid}_{id}_breakdancer_{focus}.vcf", runid=config["samples"]["runid"], id=config["samples"]["barcodes"], focus=["intrchr", "transchr"])
 
 # Combine fastq files for same sample from different barcodes and lanes
 include:  "src/combine_fastq.smk"
