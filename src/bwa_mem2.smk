@@ -7,7 +7,7 @@ rule bwa_mem2:
     bam="bwa_mem2/{runid}_{id}.bam",
     bai="bwa_mem2/{runid}_{id}.bam.bai"
   params:
-    "'@RG\tID:{id}\tSM:{id}'"
+    "'@RG\tID:{id}\tSM:{id}\tLB:{runid}_{id}'"
   log:
     "bwa_mem2/{runid}_{id}.log"
   container:
