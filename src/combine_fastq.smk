@@ -1,14 +1,15 @@
 include:  "common.smk"
+runid = config['samples']['runid']
 
 rule combine_fastq:
   input:
     fwd = linkSample2BarcodeFwd,
     rev = linkSample2BarcodeRev
   output:
-    fwd = f"combine_fastq/{config['samples']['runid']}_{id}_R1.fq.gz",
-    rev = f"combine_fastq/{config['samples']['runid']}_{id}_R2.fq.gz"
+    fwd = "combine_fastq/{runid}_{id}_R1.fq.gz",
+    rev = "combine_fastq/{runid}_{id}_R2.fq.gz"
   log:
-    f"combine_fastq/{config['samples']['runid']}_{id}.log"
+    "combine_fastq/{runid}_{id}.log"
   container:
     config["tools"]["ubuntu"]
   shell:
