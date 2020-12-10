@@ -4,7 +4,7 @@ rule breakdancer:
     bam="mark_duplicates/{runid}_{id}_dedup.bam",
     bai="mark_duplicates/{runid}_{id}_dedup.bam.bai"
   output:
-    intrchr="breakdancer/{runid}_{id}_breakdancer.vcf",
+    intrchr="breakdancer/{runid}_{id}_breakdancer_intrchr.vcf",
     transchr="breakdancer/{runid}_{id}_breakdancer_transchr.vcf"
   log:
     "breakdancer/{runid}_{id}.log"
