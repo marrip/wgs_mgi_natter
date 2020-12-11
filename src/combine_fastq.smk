@@ -12,6 +12,7 @@ rule combine_fastq:
     "combine_fastq/{runid}_{id}.log"
   container:
     config["tools"]["ubuntu"]
+  message: "Adding all reads for same sample and direction to single fastq file"
   shell:
     "cat {input.fwd} > {output.fwd} && "
     "cat {input.rev} > {output.rev}"

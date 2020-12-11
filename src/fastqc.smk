@@ -1,7 +1,7 @@
 rule fastqc:
   input:
-    fwd="combine_fastq/{runid}_{id}_R1.fq.gz",
-    rev="combine_fastq/{runid}_{id}_R2.fq.gz"
+    fwd = "combine_fastq/{runid}_{id}_R1.fq.gz",
+    rev = "combine_fastq/{runid}_{id}_R2.fq.gz"
   output:
     "fastqc/{runid}_{id}_R1_fastqc.html",
     "fastqc/{runid}_{id}_R1_fastqc.zip",
@@ -13,4 +13,7 @@ rule fastqc:
     config["tools"]["fastqc"]
   threads: 2
   shell:
-    "fastqc -t {threads} --outdir fastqc {input} &> {log}"
+    "fastqc "
+      "-t {threads} "
+      "--outdir fastqc "
+      "{input} &> {log}"
