@@ -12,7 +12,8 @@ To run this analysis, a couple of dependencies need to be met:
 
 In addition, the `template.cfg` needs to be modified to your individual
 data. There are comments in the file for guidance. As an example, one
-may check the `test.cfg`.
+may check the `test.cfg`. The used reference file should be indexed both
+with `samtools` and `bwa-mem2`.
 
 ## Usage
 
