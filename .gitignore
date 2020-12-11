@@ -6,4 +6,6 @@ breakdancer
 combine_fastq
 fastp
 fastqc
+insert_size_metrics
 mark_duplicates
+pindel
