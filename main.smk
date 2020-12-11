@@ -19,5 +19,11 @@ include:  "src/bwa_mem2.smk"
 # Mark duplicated reads using GATK4 Spark
 include:  "src/mark_duplicates.smk"
 
+# Collect insert size metrics using GATK4 Picard
+include: "src/insert_size_metrics.smk"
+
 # CNV calling using BreakDancer
 include:  "src/breakdancer.smk"
+
+# CNV calling using Pindel - not recommended to run on WGS
+include:  "src/pindel.smk"
