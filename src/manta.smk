@@ -30,7 +30,7 @@ rule manta:
     "manta/{runid}_{id}_manta.log"
   container:
     config["tools"]["manta"]
-  message: "Generate Manta run workflow script"
+  message: "Run Manta workflow script"
   threads: 40
   shell:
     "{input.script} "
