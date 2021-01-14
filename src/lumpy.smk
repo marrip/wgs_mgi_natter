@@ -1,11 +1,11 @@
 rule disco_reads:
   input:
-    bam = "mark_duplicates/{runid}_{id}_dedup.bam",
-    bai = "mark_duplicates/{runid}_{id}_dedup.bam.bai"
+    bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
+    bai = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.bai"
   output:
-    "lumpy/{runid}_{id}_disco_reads.bam"
+    "{runid}_results/lumpy/{id}/{id}_disco_reads.bam"
   log:
-    "lumpy/{runid}_{id}_disco_reads.log"
+    "{runid}_results/lumpy/log/{id}_disco_reads.log"
   container:
     config["tools"]["lumpy"]
   message: "Extracting disconcordant reads from dedup bam file"
@@ -17,12 +17,12 @@ rule disco_reads:
   
 rule split_reads:
   input:
-    bam = "mark_duplicates/{runid}_{id}_dedup.bam",
-    bai = "mark_duplicates/{runid}_{id}_dedup.bam.bai"
+    bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
+    bai = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.bai"
   output:
-    "lumpy/{runid}_{id}_split_reads.bam"
+    "{runid}_results/lumpy/{id}/{id}_split_reads.bam"
   log:
-    "lumpy/{runid}_{id}_split_reads.log"
+    "{runid}_results/lumpy/log/{id}_split_reads.log"
   container:
     config["tools"]["lumpy"]
   message: "Extracting split reads from dedup bam file"
@@ -34,14 +34,14 @@ rule split_reads:
 
 rule lumpyexpress:
   input:
-    bam = "mark_duplicates/{runid}_{id}_dedup.bam",
-    bai = "mark_duplicates/{runid}_{id}_dedup.bam.bai",
-    disco = "lumpy/{runid}_{id}_disco_reads.bam",
-    split = "lumpy/{runid}_{id}_split_reads.bam"
+    bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
+    bai = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.bai",
+    disco = "{runid}_results/lumpy/{id}/{id}_disco_reads.bam",
+    split = "{runid}_results/lumpy/{id}/{id}_split_reads.bam"
   output:
-    "lumpy/{runid}_{id}.vcf"
+    "{runid}_results/lumpy/{id}/{id}.vcf"
   log:
-    "lumpy/{runid}_{id}_lumpyexpress.log"
+    "{runid}_results/lumpy/log/{id}_lumpyexpress.log"
   container:
     config["tools"]["lumpy"]
   message: "Running lumpyexpress to identify CNVs"

@@ -6,10 +6,10 @@ rule combine_fastq:
     fwd = linkSample2BarcodeFwd,
     rev = linkSample2BarcodeRev
   output:
-    fwd = "combine_fastq/{runid}_{id}_R1.fq.gz",
-    rev = "combine_fastq/{runid}_{id}_R2.fq.gz"
+    fwd = "{runid}_results/combine_fastq/{id}/{id}_R1.fq.gz",
+    rev = "{runid}_results/combine_fastq/{id}/{id}_R2.fq.gz"
   log:
-    "combine_fastq/{runid}_{id}.log"
+    "{runid}_results/combine_fastq/log/{id}.log"
   container:
     config["tools"]["ubuntu"]
   message: "Adding all reads for same sample and direction to single fastq file"

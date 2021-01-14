@@ -1,16 +1,5 @@
 .cache
 .java
 .snakemake
-bwa_mem2
-breakdancer
-combine_fastq
-delly
-fastp
-fastqc
-genome_coverage
-insert_size_metrics
-lumpy
-manta
-mark_duplicates
-pindel
+V000000001_results
 report.html

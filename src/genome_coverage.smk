@@ -1,10 +1,10 @@
 rule genome_coverage:
   input:
-    "mark_duplicates/{runid}_{id}_dedup.bam",
+    "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
   output:
-    "genome_coverage/{runid}_{id}_coverage.bed"
+    "{runid}_results/genome_coverage/{id}/{id}_coverage.bed"
   log:
-    "genome_coverage/{runid}_{id}.log"
+    "{runid}_results/genome_coverage/log/{id}.log"
   container:
     config["tools"]["common"]
   message: "Calculating coverage using bedtools"

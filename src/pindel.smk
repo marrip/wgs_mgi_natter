@@ -1,11 +1,11 @@
 rule pre_pindel:
   input:
-    bam = "mark_duplicates/{runid}_{id}_dedup.bam",
-    metrics = "insert_size_metrics/{runid}_{id}.txt"
+    bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
+    metrics = "{runid}_results/insert_size_metrics/{id}/{id}.txt"
   output:
-    "pindel/{runid}_{id}_pindel.cfg"
+    "{runid}_results/pindel/{id}/{id}_pindel.cfg"
   log:
-    "pindel/{runid}_{id}_pre_pindel.log"
+    "{runid}_results/pindel/log/{id}_pre_pindel.log"
   container:
     config["tools"]["python"]
   message: "Create pindel config file"
@@ -15,23 +15,23 @@ rule pre_pindel:
 rule pindel:
   input:
     ref = config["reference"]["fasta"],
-    bam = "mark_duplicates/{runid}_{id}_dedup.bam",
-    bai = "mark_duplicates/{runid}_{id}_dedup.bam.bai",
-    cfg = "pindel/{runid}_{id}_pindel.cfg"
+    bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
+    bai = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.bai",
+    cfg = "{runid}_results/pindel/{id}/{id}_pindel.cfg"
   output:
-    "pindel/{runid}_{id}_BP",
-    "pindel/{runid}_{id}_CloseEndMapped",
-    "pindel/{runid}_{id}_D",
-    "pindel/{runid}_{id}_INT_final",
-    "pindel/{runid}_{id}_INV",
-    "pindel/{runid}_{id}_LI",
-    "pindel/{runid}_{id}_RP",
-    "pindel/{runid}_{id}_SI",
-    "pindel/{runid}_{id}_TD"
+    "{runid}_results/pindel/{id}/{id}_BP",
+    "{runid}_results/pindel/{id}/{id}_CloseEndMapped",
+    "{runid}_results/pindel/{id}/{id}_D",
+    "{runid}_results/pindel/{id}/{id}_INT_final",
+    "{runid}_results/pindel/{id}/{id}_INV",
+    "{runid}_results/pindel/{id}/{id}_LI",
+    "{runid}_results/pindel/{id}/{id}_RP",
+    "{runid}_results/pindel/{id}/{id}_SI",
+    "{runid}_results/pindel/{id}/{id}_TD"
   params:
     B = 60
   log:
-    "pindel/{runid}_{id}_pindel.log"
+    "{runid}_results/pindel/log/{id}_pindel.log"
   container:
     config["tools"]["pindel"]
   threads: 40
@@ -42,21 +42,21 @@ rule pindel:
       "-i {input.cfg} "
       "-T {threads} "
       "-B {params.B} "
-      "-o pindel/{wildcards.runid}_{wildcards.id} &> {log}"
+      "-o {wildcards.runid}_results/pindel/{wildcards.id}/{wildcards.id} &> {log}"
 
 rule pindel_to_vcf:
   input:
     ref = config["reference"]["fasta"],
-    pindel_files = expand("pindel/{runid}_{id}_{out_type}",
+    pindel_files = expand("{runid}_results/pindel/{id}/{id}_{out_type}",
         runid = config["samples"]["runid"],
         id = config["samples"]["barcodes"],
         out_type = ["BP", "CloseEndMapped", "D", "INT_final", "INV", "LI", "RP", "SI", "TD"])
   output:
-    expand("pindel/{runid}_{id}_pindel.vcf",
+    expand("{runid}_results/pindel/{id}/{id}_pindel.vcf",
         runid=config["samples"]["runid"],
         id=config["samples"]["barcodes"])
   params:
-    prefix = expand("pindel/{runid}_{id}",
+    prefix = expand("{runid}_results/pindel/{id}/{id}",
         runid = config["samples"]["runid"],
         id = config["samples"]["barcodes"]),
     refid = "'Genome Reference Consortium Human Build 38'",
@@ -65,7 +65,7 @@ rule pindel_to_vcf:
     mc = 10,
     minsize = 5
   log:
-    expand("pindel/{runid}_{id}_pindel_to_vcf.log",
+    expand("{runid}_results/pindel/log/{id}_pindel_to_vcf.log",
         runid=config["samples"]["runid"],
         id=config["samples"]["barcodes"])
   container:

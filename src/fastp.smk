@@ -1,17 +1,17 @@
 rule fastp:
   input:
-    fwd = "combine_fastq/{runid}_{id}_R1.fq.gz",
-    rev = "combine_fastq/{runid}_{id}_R2.fq.gz"
+    fwd = "{runid}_results/combine_fastq/{id}/{id}_R1.fq.gz",
+    rev = "{runid}_results/combine_fastq/{id}/{id}_R2.fq.gz"
   output:
-    fwd = "fastp/{runid}_{id}_R1.fq.gz",
-    rev = "fastp/{runid}_{id}_R2.fq.gz",
-    json = "fastp/{runid}_{id}_fastp.json",
-    html = "fastp/{runid}_{id}_fastp.html"
+    fwd = "{runid}_results/fastp/{id}/{id}_R1.fq.gz",
+    rev = "{runid}_results/fastp/{id}/{id}_R2.fq.gz",
+    json = "{runid}_results/fastp/{id}/{id}_fastp.json",
+    html = "{runid}_results/fastp/{id}/{id}_fastp.html"
   params:
     ad_fwd = config["samples"]["adapter"]["fwd"],
     ad_rev = config["samples"]["adapter"]["rev"]
   log:
-    "fastp/{runid}_{id}.log"
+    "{runid}_results/fastp/log/{id}.log"
   container:
     config["tools"]["fastp"]
   threads: 40
