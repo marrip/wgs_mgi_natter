@@ -17,6 +17,6 @@ rule mark_duplicates:
       "-I {input.bam} "
       "-O {output.bam} "
       "-M {output.metrics} "
-      "--tmp-dir {wildcards.runid}_results/mark_duplicates/tmp_{wildcards.id} "
+      "--tmp-dir {wildcards.runid}_results/mark_duplicates/{wildcards.id} "
       "--create-output-bam-index true "
       "--spark-master local[{threads}] &> {log}"

@@ -1,12 +1,12 @@
 rule pre_manta:
   input:
     ref = config["reference"]["fasta"],
-    bam = "mark_duplicates/{runid}_{id}_dedup.bam",
-    bai = "mark_duplicates/{runid}_{id}_dedup.bam.bai"
+    bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
+    bai = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.bai"
   output:
-    "manta/{runid}_{id}/runWorkflow.py"
+    "{runid}_results/manta/{id}/runWorkflow.py"
   log:
-    "manta/{runid}_{id}_pre_manta.log"
+    "{runid}_results/manta/log/{id}_pre_manta.log"
   container:
     config["tools"]["manta"]
   message: "Generate Manta run workflow script"
@@ -14,20 +14,18 @@ rule pre_manta:
     "configManta.py "
       "--tumorBam={input.bam} "
       "--referenceFasta={input.ref} "
-      "--runDir=manta/{wildcards.runid}_{wildcards.id} &> {log}"
+      "--runDir={wildcards.runid}_results/manta/{wildcards.id} &> {log}"
 
 rule manta:
   input:
     ref = config["reference"]["fasta"],
-    bam = "mark_duplicates/{runid}_{id}_dedup.bam",
-    bai = "mark_duplicates/{runid}_{id}_dedup.bam.bai",
-    script = "manta/{runid}_{id}/runWorkflow.py"
+    bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
+    bai = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.bai",
+    script = "{runid}_results/manta/{id}/runWorkflow.py"
   output:
-    "manta/{runid}_{id}/results/variants/candidateSV.vcf.gz",
-    "manta/{runid}_{id}/results/variants/candidateSmallIndels.vcf.gz",
-    "manta/{runid}_{id}/results/variants/tumorSV.vcf.gz"
+    "{runid}_results/manta/{id}/results/variants/tumorSV.vcf.gz"
   log:
-    "manta/{runid}_{id}_manta.log"
+    "{runid}_results/manta/log/{id}_manta.log"
   container:
     config["tools"]["manta"]
   message: "Run Manta workflow script"
@@ -36,3 +34,21 @@ rule manta:
     "{input.script} "
       "-j {threads} "
       "-g unlimited &> {log}"
+
+rule filter_manta:
+  input:
+    vcf = "{runid}_results/manta/{id}/results/variants/tumorSV.vcf.gz",
+    bed = config["manta"]["bed"]
+  output:
+    "{runid}_results/manta/{id}/results/variants/tumorSV_filtered.vcf.gz"
+  log:
+    "{runid}_results/manta/log/{id}_filter_manta.log"
+  container:
+    config["tools"]["common"]
+  message: "Filter manta vcf against bed file with normal variants"
+  shell:
+    "(bedtools intersect "
+      "-header "
+      "-v "
+      "-f 0.25 "
+      "-a {input.vcf} -b {input.bed} | gzip > {output}) &> {log}"
