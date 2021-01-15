@@ -6,8 +6,6 @@ rule mark_duplicates:
     bam = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam",
     bai = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.bai",
     metrics = "{runid}_results/mark_duplicates/{id}/{id}_dedup.bam.metrics"
-  params:
-    tmp = "{runid}_results/mark_duplicates"
   log:
     "{runid}_results/mark_duplicates/log/{id}.log"
   container:
@@ -19,6 +17,6 @@ rule mark_duplicates:
       "-I {input.bam} "
       "-O {output.bam} "
       "-M {output.metrics} "
-      "--tmp-dir {params} "
+      "--tmp-dir {wildcards.runid}_results/mark_duplicates/tmp_{wildcards.id} "
       "--create-output-bam-index true "
       "--spark-master local[{threads}] &> {log}"
