@@ -14,7 +14,7 @@ rule fastp:
     "{runid}_results/fastp/log/{id}.log"
   container:
     config["tools"]["fastp"]
-  threads: 40
+  threads: 16
   message: "Trim adapters and fix mgi id in fastq header"
   shell:
     "fastp "
