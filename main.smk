@@ -2,7 +2,7 @@
 rule all:
   input:
     expand("{runid}_results/fastqc/{id}/{id}_{orientation}_fastqc.{extension}", runid=config["samples"]["runid"], id=config["samples"]["barcodes"], orientation=["R1", "R2"], extension=["html", "zip"]),
-    expand("{runid}_results/genome_coverage/{id}/{id}_coverage.bed", runid=config["samples"]["runid"], id=config["samples"]["barcodes"]),
+    expand("{runid}_results/genome_coverage/{id}/{id}.mosdepth.{files}.txt", runid=config["samples"]["runid"], id=config["samples"]["barcodes"], files=["global.dist", "summary"]),
     expand("{runid}_results/seqtools/{id}/tumorSV_annotated_processed.txt", runid=config["samples"]["runid"], id=config["samples"]["barcodes"])
 
 # Combine fastq files for same sample from different barcodes and lanes
