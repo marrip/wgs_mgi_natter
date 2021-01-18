@@ -1,11 +1,12 @@
 rule snpeff:
   input:
     vcf = "{runid}_results/manta/{id}/results/variants/tumorSV_filtered.vcf.gz",
-    cfile = config["snpeff"]["cfile"],
-    db = config["snpeff"]["db"]
+    cfile = config["snpeff"]["cfile"]
   output:
     vcf = "{runid}_results/snpeff/{id}/tumorSV_annotated.vcf",
     html = "{runid}_results/snpeff/{id}/tumorSV_annotated.html"
+  params:
+    config["snpeff"]["db"]
   log:
     "{runid}_results/snpeff/log/{id}_snpeff.log"
   container:
@@ -18,5 +19,5 @@ rule snpeff:
       "-nodownload "
       "-canon "
       "-s {output.html} "
-      "{input.db} "
+      "{params} "
       "{input.vcf} > {output.vcf}) &> {log}"
