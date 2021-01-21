@@ -12,7 +12,7 @@ import pandas
 def importTable(file):
     # Define column names and read seqtools table
     original_cn = ['SampleName', 'FILTER', 'CHROM', 'POS', 'REF', 'ALT', 'ID', 'IMPRECISE', 'SVTYPE', 'SVLEN', 'END', 'CIPOS.0', 'CIPOS.1', 'CIEND.0', 'CIEND.1', 'CIGAR', 'MATEID', 'EVENT', 'HOMLEN', 'HOMSEQ', 'SVINSLEN', 'SVINSSEQ', 'LEFT_SVINSSEQ', 'RIGHT_SVINSSEQ', 'BND_DEPTH', 'MATE_BND_DEPTH', 'ANN', 'LOF', 'NMD', 'SIMPLE_ANN', 'SV_HIGHEST_TIER', 'Tumor_Ref_PR', 'Tumor_Alt_PR', 'Tumor_Ref_SR', 'Tumor_Alt_SR']
-    pandas.read_csv(str(file), sep='\t', encoding='latin-1', names=original_cn)
+    return pandas.read_csv(str(file), sep='\t', encoding='latin-1', names=original_cn)
 
 def modifyTable(table):
     # Retain non-filtered calls of BND-type
@@ -46,7 +46,7 @@ def modifyTable(table):
 
 table = importTable(snakemake.input)
 
-if table == None:
+if table.empty:
     with open(str(snakemake.output), 'a'):
         os.utime(str(snakemake.output), None)
 elif len(table) > 0:
