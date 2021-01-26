@@ -16,7 +16,7 @@ may check the `test.cfg`. The used reference file should be indexed both
 with `samtools` and `bwa-mem2`. For detailed instructions on how to prep
 the reference, please refer to the section *Prep reference*. There are
 also suitable files available at
-`https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0`.
+[`https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0`](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0).
 
 ## Usage
 
